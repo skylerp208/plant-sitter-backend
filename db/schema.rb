@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 2019_01_30_205347) do
   create_table "requests", force: :cascade do |t|
     t.integer "owner_id"
     t.integer "sitter_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "message"
+    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,6 +34,7 @@ ActiveRecord::Schema.define(version: 2019_01_30_205347) do
     t.string "address"
     t.string "email"
     t.string "bio"
+    t.boolean "isSitter", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,8 +1,16 @@
 class Api::V1::RequestsController < ApplicationController
-  before_action :find_request, only: [:update]
+  before_action :find_request, only: [:update, :destroy]
   def index
     @requests = Request.all
     render json: @requests
+  end
+
+  def show
+    render json: @request
+  end
+
+  def create
+    @request = Request.create(request_params)
   end
 
   def update
@@ -14,10 +22,14 @@ class Api::V1::RequestsController < ApplicationController
     end
   end
 
+  def destroy
+    @request.destroy
+  end
+
   private
 
   def request_params
-    params.permit(:first_name, :last_name, :requestname, :address, :bio, :email)
+    params.require(:request).permit(:message, :start_date, :end_date, :sitter_id, :owner_id, :status)
   end
 
   def find_request

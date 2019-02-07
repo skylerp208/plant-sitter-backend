@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :address
       t.string :email
       t.string :bio
+      t.boolean :isSitter, :default => false
 
       t.timestamps
     end
