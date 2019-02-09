@@ -7,7 +7,7 @@ class CreateRequests < ActiveRecord::Migration[5.2]
       t.date :end_date
       t.string :message
       t.string :status
-      
+
       t.timestamps
     end
   end
