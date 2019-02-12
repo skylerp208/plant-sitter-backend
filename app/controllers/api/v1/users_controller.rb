@@ -1,13 +1,15 @@
 class Api::V1::UsersController < ApplicationController
   before_action :find_user, only: [:update, :show]
-  skip_before_action :authorized, only: [:index, :show, :create]
+  skip_before_action :authorized, only: [:index, :show, :create, :update]
   def index
     @users = User.all
     render json: @users
   end
 
   def show
-    render json:@user
+    photo_urls = @user.plant_photos.map {|photo| url_for(photo)}
+    user = UserSerializer.new(@user)
+    render json: {user: user, urls: photo_urls}
   end
 
   def profile
@@ -26,6 +28,9 @@ class Api::V1::UsersController < ApplicationController
 
   def update
     @user.update(user_params)
+    if params[:photo]
+      @user.plant_photos.attach(params[:photo])
+    end
     if @user.save
       render json: @user, status: :accepted
     else
@@ -36,7 +41,7 @@ class Api::V1::UsersController < ApplicationController
   private
 
   def user_params
-    params.permit(:first_name, :last_name, :username, :address, :bio, :email, :requests, :password)
+    params.permit(:first_name, :last_name, :username, :address, :bio, :email, :requests, :password, :profile_photo, plant_photos: [])
   end
 
   def find_user

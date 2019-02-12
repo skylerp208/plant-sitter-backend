@@ -5,9 +5,7 @@ class ApplicationController < ActionController::API
   end
 
   def auth_header
-    # byebug
     request.headers['Authorization']
-
   end
 
   def decoded_token

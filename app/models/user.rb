@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :owners, :through => :claims, :source => 'owner'
   has_many :sitters, :through => :requests, :source => 'sitter'
 
+  has_one_attached :profile_photo
+  has_many_attached :plant_photos
 end
