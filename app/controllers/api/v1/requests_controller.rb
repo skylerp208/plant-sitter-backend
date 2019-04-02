@@ -1,6 +1,6 @@
 class Api::V1::RequestsController < ApplicationController
   before_action :find_request, only: [:update, :destroy]
-  skip_before_action :authorized
+  skip_before_action :authorized, only: [:index]
   def index
     @requests = Request.all
     render json: @requests

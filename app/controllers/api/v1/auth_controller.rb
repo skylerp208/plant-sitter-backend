@@ -7,7 +7,7 @@ class Api::V1::AuthController < ApplicationController
         token = encode_token({ user_id: @user.id })
         render json: { user: @user, jwt: token}
       else
-        render json: {error: "neither of those were correct"}, status: 422
+        render json: {error: "Invalid username or password"}, status: 422
       end
     end
 
